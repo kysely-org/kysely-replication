@@ -1,0 +1,38 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"files": {
+		"include": ["src/**/*", "scripts/**/*", "tsconfig.json", "tsup.config.ts"]
+	},
+	"formatter": {
+		"formatWithErrors": true
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "asNeeded"
+		}
+	},
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExtraBooleanCast": "error"
+			},
+			"correctness": {
+				"useImportExtensions": "error"
+			},
+			"nursery": {
+				"noCommonJs": "error",
+				"useDeprecatedReason": "error"
+			},
+			"style": {
+				"noNonNullAssertion": "warn",
+				"noParameterAssign": "warn",
+				"useNodejsImportProtocol": "error"
+			},
+			"suspicious": {
+				"noAssignInExpressions": "warn",
+				"noExplicitAny": "warn"
+			}
+		}
+	}
+}

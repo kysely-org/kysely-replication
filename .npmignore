@@ -1,0 +1,10 @@
+.vscode
+node_modules
+scripts
+src
+.gitignore
+.npmignore
+biome.json
+package-lock.yaml
+tsconfig.json
+tsup.config.ts

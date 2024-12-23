@@ -1,0 +1,76 @@
+{
+	"name": "kysely-replication",
+	"version": "0.0.0",
+	"description": "",
+	"type": "module",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		},
+		"./strategy/random": {
+			"import": {
+				"types": "./dist/strategy/random.d.ts",
+				"default": "./dist/strategy/random.js"
+			},
+			"require": {
+				"types": "./dist/strategy/random.d.cts",
+				"default": "./dist/strategy/random.cjs"
+			}
+		},
+		"./strategy/round-robin": {
+			"import": {
+				"types": "./dist/strategy/round-robin.d.ts",
+				"default": "./dist/strategy/round-robin.js"
+			},
+			"require": {
+				"types": "./dist/strategy/round-robin.d.cts",
+				"default": "./dist/strategy/round-robin.cjs"
+			}
+		}
+	},
+	"scripts": {
+		"build": "tsup && tsx ./scripts/fix-build.mts",
+		"lint": "biome check",
+		"check:dts": "attw --pack .",
+		"check:types": "tsc",
+		"prepublishOnly": "pnpm build && pnpm check:dts"
+	},
+	"keywords": [
+		"kysely",
+		"replication",
+		"dialect",
+		"sql",
+		"database",
+		"query",
+		"builder"
+	],
+	"author": "Igal Klebanov <igalklebanov@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.17.2",
+		"@biomejs/biome": "^1.9.4",
+		"@tsconfig/node22": "^22.0.0",
+		"@types/node": "^22.10.2",
+		"kysely": "^0.27.5",
+		"tsup": "^8.3.5",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.2",
+		"vitest": "^2.1.8"
+	},
+	"sideEffects": false,
+	"packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf"
+}
