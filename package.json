@@ -47,7 +47,8 @@
 		"lint": "biome check",
 		"check:dts": "attw --pack .",
 		"check:types": "tsc",
-		"prepublishOnly": "pnpm build && pnpm check:dts"
+		"prepublishOnly": "pnpm lint && vitest run && pnpm build && pnpm check:dts",
+		"test": "vitest"
 	},
 	"keywords": [
 		"kysely",

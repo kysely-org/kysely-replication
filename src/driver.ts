@@ -93,13 +93,13 @@ export class KyselyReplicationDriver implements Driver {
 		await connection.rollbackTransaction()
 	}
 
-	#compileErrors(results: PromiseSettledResult<any>[]): string[] {
+	#compileErrors(results: PromiseSettledResult<unknown>[]): string[] {
 		return results
 			.map((result, index) =>
 				result.status === 'fulfilled'
 					? null
 					: `${!index ? 'primary' : `replica-${index - 1}`}: ${result.reason}`,
 			)
-			.filter(Boolean) as any
+			.filter(Boolean) as string[]
 	}
 }
