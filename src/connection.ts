@@ -136,7 +136,11 @@ export class KyselyReplicationConnection implements DatabaseConnection {
 		return (
 			this.#isOperationNodeForPrimary(query) ||
 			(SelectQueryNode.is(query) &&
-				Boolean(query.with?.expressions.some(this.#isOperationNodeForPrimary)))
+				Boolean(
+					query.with?.expressions.some((e) =>
+						this.#isOperationNodeForPrimary(e.expression),
+					),
+				))
 		)
 	}
 
