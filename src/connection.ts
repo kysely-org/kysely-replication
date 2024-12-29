@@ -33,14 +33,14 @@ const PRIMARY_OPERATION_NODE_KINDS: Record<
 
 export class KyselyReplicationConnection implements DatabaseConnection {
 	readonly #primaryDriver: Driver
-	readonly #getReplicaDriver: () => Promise<Driver>
+	readonly #getReplicaDriver: (compiledQuery: CompiledQuery) => Promise<Driver>
 	readonly #onReplicaTransaction: 'error' | 'warn' | 'allow'
 	#connection: DatabaseConnection | null
 	#driver: Driver | null
 
 	constructor(
 		primary: Driver,
-		getReplica: () => Promise<Driver>,
+		getReplica: (compiledQuery: CompiledQuery) => Promise<Driver>,
 		onReplicaTransaction: 'error' | 'warn' | 'allow',
 	) {
 		this.#primaryDriver = primary
@@ -123,7 +123,7 @@ export class KyselyReplicationConnection implements DatabaseConnection {
 			compiledQueryOrContext === 'transaction' ||
 			this.#isQueryForPrimary(compiledQueryOrContext)
 				? this.#primaryDriver
-				: await this.#getReplicaDriver()
+				: await this.#getReplicaDriver(compiledQueryOrContext)
 
 		this.#connection = await this.#driver.acquireConnection()
 
@@ -132,6 +132,10 @@ export class KyselyReplicationConnection implements DatabaseConnection {
 
 	#isQueryForPrimary(compiledQuery: CompiledQuery): boolean {
 		const { query } = compiledQuery
+
+		if ('__dialect__' in query) {
+			return query.__dialect__ === 'primary'
+		}
 
 		return (
 			this.#isOperationNodeForPrimary(query) ||

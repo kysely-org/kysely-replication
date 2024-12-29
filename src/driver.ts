@@ -1,4 +1,9 @@
-import type { DatabaseConnection, Driver, TransactionSettings } from 'kysely'
+import type {
+	CompiledQuery,
+	DatabaseConnection,
+	Driver,
+	TransactionSettings,
+} from 'kysely'
 import type { ReplicaStrategy } from './config.js'
 import { KyselyReplicationConnection } from './connection.js'
 
@@ -20,10 +25,11 @@ export class KyselyReplicationDriver implements Driver {
 	async acquireConnection(): Promise<DatabaseConnection> {
 		return new KyselyReplicationConnection(
 			this.#primaryDriver,
-			async () => {
-				const replicaIndex = await this.#replicaStrategy.next(
-					this.#replicaDrivers.length,
-				)
+			async (compiledQuery: CompiledQuery) => {
+				const replicaIndex =
+					'__replicaIndex__' in compiledQuery.query
+						? (compiledQuery.query.__replicaIndex__ as number)
+						: await this.#replicaStrategy.next(this.#replicaDrivers.length)
 
 				const replicaDriver = this.#replicaDrivers[replicaIndex]
 
