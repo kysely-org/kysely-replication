@@ -156,10 +156,10 @@ To wait for replication on every mutation, configure the primary database connec
 
 ```diff
 const primaryDialect = new PostgresDialect({
-  pool: new Pool({ connectionString: process.env.DATABASE_URL_PRIMARY }),
-+  onCreateConnection: async connnection => {
-+    await connnection.executeQuery(CompiledQuery.raw(`SET synchronous_commit = 'remote_apply'`))
-+  },
+    pool: new Pool({ connectionString: process.env.DATABASE_URL_PRIMARY }),
++   onCreateConnection: async connnection => {
++       await connnection.executeQuery(CompiledQuery.raw(`SET synchronous_commit = 'remote_apply'`))
++   },
 })
 ```
 
