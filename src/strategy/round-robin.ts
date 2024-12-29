@@ -5,10 +5,10 @@ export interface RoundRobinReplicaStrategyOptions {
 }
 
 export class RoundRobinReplicaStrategy implements ReplicaStrategy {
-	readonly #options: RoundRobinReplicaStrategyOptions
+	readonly #options?: RoundRobinReplicaStrategyOptions
 	#lastReplica = -1
 
-	constructor(options: RoundRobinReplicaStrategyOptions) {
+	constructor(options?: RoundRobinReplicaStrategyOptions) {
 		this.#options = { ...options }
 	}
 
@@ -18,6 +18,6 @@ export class RoundRobinReplicaStrategy implements ReplicaStrategy {
 	}
 
 	get onTransaction(): 'error' | 'warn' | 'allow' | undefined {
-		return this.#options.onTransaction
+		return this.#options?.onTransaction
 	}
 }

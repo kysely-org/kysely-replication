@@ -5,10 +5,10 @@ export interface RandomReplicaStrategyOptions {
 }
 
 export class RandomReplicaStrategy implements ReplicaStrategy {
-	readonly #options: RandomReplicaStrategyOptions
+	readonly #options?: RandomReplicaStrategyOptions
 
-	constructor(options: RandomReplicaStrategyOptions) {
-		this.#options = options
+	constructor(options?: RandomReplicaStrategyOptions) {
+		this.#options = { ...options }
 	}
 
 	async next(replicaCount: number): Promise<number> {
@@ -16,6 +16,6 @@ export class RandomReplicaStrategy implements ReplicaStrategy {
 	}
 
 	get onTransaction(): 'error' | 'warn' | 'allow' | undefined {
-		return this.#options.onTransaction
+		return this.#options?.onTransaction
 	}
 }
