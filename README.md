@@ -143,3 +143,36 @@ const users = await db
   .values({ email: 'info@example.com', is_verified: false })
   .execute() // executes on replica 2 instead of primary
 ```
+
+## Wait for Propagation (PostgreSQL-Only)
+
+When writing to the primary, you may want to ensure that replicas have caught up before considering a mutation as complete. This can be critical for consistency in systems that rely on replicated reads immediately following a write.
+
+Replication is usually near-instantaneous but can occasionally take longer (e.g., 30+ seconds). Therefore, waiting for replication increases mutation execution time, so use this approach selectively where required.
+
+### All Mutations
+
+To wait for replication on every mutation, configure the primary database connection:
+
+```ts
+const primaryDialect = new PostgresDialect({
+    pool: new Pool({ connectionString: process.env.DATABASE_URL_PRIMARY }),
+    onCreateConnection: async connnection => {
+    // Apply setting globally for this connection (PostgreSQL)
+    await connnection.executeQuery(CompiledQuery.raw(`SET synchronous_commit = 'remote_apply'`))
+  },
+})
+```
+
+### Ad-Hoc Mutations
+
+If waiting for replication is only required for specific operations, use SET LOCAL within a transaction. This scopes the setting to the transaction without affecting the connection’s global state.
+
+```ts
+await db.transaction().execute(async tx => {
+  // Set synchronous_commit for this transaction only (PostgreSQL)
+  tx.executeQuery(CompiledQuery.raw(`SET LOCAL synchronous_commit = 'remote_apply'`))
+
+  // continue with the transaction as normal
+})
+```
