@@ -174,9 +174,10 @@ const primaryDialect = new PostgresDialect({
 If waiting for replication is only required for specific operations, use SET LOCAL within a transaction. This scopes the setting to the transaction without affecting the connection’s global state.
 
 ```ts
-await db.transaction().execute(async tx => {
-  // Set synchronous_commit for this transaction only (PostgreSQL)
-  tx.executeQuery(CompiledQuery.raw(`SET LOCAL synchronous_commit = 'remote_apply'`))
+import { sql } from 'kysely'
+
+await db.transaction().execute(async (trx) => {
+  await sql`set local synchronous_commit = 'remote_apply'`.execute(trx)
 
   // continue with the transaction as normal
 })
