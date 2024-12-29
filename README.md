@@ -155,10 +155,16 @@ Replication is usually near-instantaneous but can occasionally take longer (e.g.
 To wait for replication on every mutation, configure the primary database connection:
 
 ```diff
+-import { Kysely, PostgresDialect } from 'kysely'
++import { Kysely, PostgresDialect, sql } from 'kysely'
+import { KyselyReplicationDialect } from 'kysely-replication'
+import { RoundRobinReplicaStrategy } from 'kysely-replication/strategy/round-robin'
+import { Pool } from 'pg'
+
 const primaryDialect = new PostgresDialect({
     pool: new Pool({ connectionString: process.env.DATABASE_URL_PRIMARY }),
-+   onCreateConnection: async connnection => {
-+       await connnection.executeQuery(CompiledQuery.raw(`SET synchronous_commit = 'remote_apply'`))
++   onCreateConnection: async (connection) => {
++       await sql`set synchronous_commit = 'remote_apply'`.execute(connection)
 +   },
 })
 ```
