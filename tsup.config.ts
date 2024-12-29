@@ -10,6 +10,7 @@ export default defineConfig({
 		'./src/index.ts',
 		'./src/strategy/random.ts',
 		'./src/strategy/round-robin.ts',
+		'./src/with-dialect/index.ts',
 	],
 	format: ['cjs', 'esm'],
 	skipNodeModulesBundle: true,

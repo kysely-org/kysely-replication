@@ -13,6 +13,7 @@ const rootPath = join(__dirname, '../')
 export async function clean() {
 	try {
 		await rm(join(rootPath, 'strategy'), { recursive: true })
+		await rm(join(rootPath, 'with-dialect'), { recursive: true })
 	} catch {}
 
 	const rootFolder = await readdir(rootPath, { withFileTypes: true })

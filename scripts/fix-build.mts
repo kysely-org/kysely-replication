@@ -10,12 +10,11 @@ const __dirname = dirname(
 )
 
 const rootPath = join(__dirname, '../')
-export const rootStrategyPath = join(rootPath, 'strategy')
 const distPath = join(__dirname, '../dist')
-const distStrategyPath = join(distPath, 'strategy')
 
 export async function fixBuild(): Promise<void> {
-	await cp(distStrategyPath, rootStrategyPath, { recursive: true })
+	await cp(join(distPath, 'strategy'), join(rootPath, 'strategy'), { recursive: true })
+	await cp(join(distPath, 'with-dialect'), join(rootPath, 'with-dialect'), { recursive: true })
 
 	const distFolder = await readdir(distPath, { withFileTypes: true })
 	for (const dirent of distFolder) {

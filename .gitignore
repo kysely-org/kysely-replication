@@ -91,6 +91,7 @@ out
 .nuxt
 dist
 strategy/**/*
+with-dialect/**/*
 config-*.d.*ts
 
 # Gatsby files
