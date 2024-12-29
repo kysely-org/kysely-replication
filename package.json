@@ -1,6 +1,6 @@
 {
 	"name": "kysely-replication",
-	"version": "0.0.2",
+	"version": "0.1.0",
 	"description": "Replication-aware Kysely query execution",
 	"repository": {
 		"type": "git",
