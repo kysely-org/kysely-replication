@@ -13,8 +13,8 @@ const rootPath = join(__dirname, '../')
 const distPath = join(__dirname, '../dist')
 
 export async function fixBuild(): Promise<void> {
-	await cp(join(distPath, 'strategy'), join(rootPath, 'strategy'), { recursive: true })
-	await cp(join(distPath, 'with-dialect'), join(rootPath, 'with-dialect'), { recursive: true })
+	await copySubfolderToRoot('force')
+	await copySubfolderToRoot('strategy')
 
 	const distFolder = await readdir(distPath, { withFileTypes: true })
 	for (const dirent of distFolder) {
@@ -22,6 +22,10 @@ export async function fixBuild(): Promise<void> {
 			await copyFile(join(distPath, dirent.name), join(rootPath, dirent.name))
 		}
 	}
+}
+
+async function copySubfolderToRoot(folderName: string): Promise<void> {
+	await cp(join(distPath, folderName), join(rootPath, folderName), { recursive: true })
 }
 
 fixBuild()

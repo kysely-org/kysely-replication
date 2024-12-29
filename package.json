@@ -57,6 +57,16 @@
 				"default": "./dist/index.cjs"
 			}
 		},
+		"./force": {
+			"import": {
+				"types": "./dist/force/index.d.ts",
+				"default": "./dist/force/index.js"
+			},
+			"require": {
+				"types": "./dist/force/index.d.cts",
+				"default": "./dist/force/index.cjs"
+			}
+		},
 		"./strategy/random": {
 			"import": {
 				"types": "./dist/strategy/random.d.ts",
@@ -75,16 +85,6 @@
 			"require": {
 				"types": "./dist/strategy/round-robin.d.cts",
 				"default": "./dist/strategy/round-robin.cjs"
-			}
-		},
-		"./with-dialect": {
-			"import": {
-				"types": "./dist/with-dialect/index.d.ts",
-				"default": "./dist/with-dialect/index.js"
-			},
-			"require": {
-				"types": "./dist/with-dialect/index.d.cts",
-				"default": "./dist/with-dialect/index.cjs"
 			}
 		}
 	}

@@ -12,8 +12,8 @@ const rootPath = join(__dirname, '../')
 
 export async function clean() {
 	try {
-		await rm(join(rootPath, 'strategy'), { recursive: true })
-		await rm(join(rootPath, 'with-dialect'), { recursive: true })
+		await deleteRootedSubfolder('force')
+		await deleteRootedSubfolder('strategy')
 	} catch {}
 
 	const rootFolder = await readdir(rootPath, { withFileTypes: true })
@@ -22,4 +22,8 @@ export async function clean() {
 			await unlink(join(rootPath, dirent.name))
 		}
 	}
+}
+
+async function deleteRootedSubfolder(folderName: string): Promise<void> {
+	await rm(join(rootPath, folderName), { recursive: true })
 }

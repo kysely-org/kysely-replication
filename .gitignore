@@ -90,8 +90,8 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+force/**/*
 strategy/**/*
-with-dialect/**/*
 config-*.d.*ts
 
 # Gatsby files

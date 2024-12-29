@@ -99,3 +99,47 @@ Read queries execute on replica dialects, as you'd expect.
 
 Basically, `db.selectFrom` and `db.selectNoFrom` queries that do not contain write 
 queries in a `with` clause.
+
+## Force Execute on a Specific Dialect
+
+Sometimes you want to force a query to execute on a specific dialect. This can 
+be done using the `withPrimary` and `withReplica` methods.
+
+First, import the `force` module where you define your db instance:
+
+```ts
+import 'kysely-replication/force'
+```
+
+It will add the `withPrimary` and `withReplica` methods in various places in the
+Kysely API.
+
+### Force Execute on Primary
+
+```ts
+const users = await db
+  .withPrimary()
+  .selectFrom('users')
+  .selectAll()
+  .execute() // executes on primary instead of replica
+```
+
+## Force Execute on Replica
+
+```ts
+const users = await db
+  .withReplica()
+  .insertInto('users')
+  .values({ email: 'info@example.com', is_verified: false })
+  .execute() // executes on a replica instead of primary
+```
+
+You can also provide a specific replica index to override the replica strategy:
+
+```ts
+const users = await db
+  .withReplica(2)
+  .insertInto('users')
+  .values({ email: 'info@example.com', is_verified: false })
+  .execute() // executes on replica 2 instead of primary
+```

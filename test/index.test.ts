@@ -1,4 +1,4 @@
-import { type Kysely, type QueryCreator, type SchemaModule, sql } from 'kysely'
+import { type Kysely, sql } from 'kysely'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { RandomReplicaStrategy } from '../src/strategy/random.js'
 import { RoundRobinReplicaStrategy } from '../src/strategy/round-robin.js'

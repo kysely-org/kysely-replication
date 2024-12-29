@@ -8,17 +8,12 @@ import {
 	getMutationQueries,
 	getReadQueries,
 } from './test-setup.js'
-import '../src/with-dialect/index.js'
+import '../src/force/index.js'
 
 describe.each([
-	{
-		dialect: 'primary',
-	},
-	{
-		dialect: 'replica',
-		replicaIndex: 1,
-	},
-] as const)('with $dialect', ({ dialect, replicaIndex }) => {
+	{ dialect: 'primary' },
+	{ dialect: 'replica', replicaIndex: 1 },
+] as const)('force: with $dialect', ({ dialect, replicaIndex }) => {
 	const executions: string[] = []
 	let db: Kysely<Database>
 	let method: 'withPrimary' | 'withReplica'
