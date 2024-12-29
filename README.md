@@ -156,7 +156,7 @@ To wait for replication on every mutation, configure the primary database connec
 
 ```diff
 -import { Kysely, PostgresDialect } from 'kysely'
-+import { Kysely, PostgresDialect, sql } from 'kysely'
++import { CompiledQuery, Kysely, PostgresDialect } from 'kysely'
 import { KyselyReplicationDialect } from 'kysely-replication'
 import { RoundRobinReplicaStrategy } from 'kysely-replication/strategy/round-robin'
 import { Pool } from 'pg'
@@ -164,7 +164,7 @@ import { Pool } from 'pg'
 const primaryDialect = new PostgresDialect({
     pool: new Pool({ connectionString: process.env.DATABASE_URL_PRIMARY }),
 +   onCreateConnection: async (connection) => {
-+       await sql`set synchronous_commit = 'remote_apply'`.execute(connection)
++       await connection.executeQuery(CompiledQuery.raw(`set synchronous_commit = 'remote_apply'`))
 +   },
 })
 ```
