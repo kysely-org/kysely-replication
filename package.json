@@ -19,6 +19,7 @@
 		"check:dts": "attw --pack .",
 		"check:types": "tsc",
 		"prepublishOnly": "pnpm lint && vitest run && pnpm build && pnpm check:dts",
+		"release:preview": "pkg-pr-new publish",
 		"test": "vitest"
 	},
 	"keywords": [
@@ -38,6 +39,7 @@
 		"@tsconfig/node22": "^22.0.0",
 		"@types/node": "^22.10.2",
 		"kysely": "^0.27.5",
+		"pkg-pr-new": "^0.0.39",
 		"tsup": "^8.3.5",
 		"tsx": "^4.19.2",
 		"typescript": "^5.7.2",
