@@ -12,3 +12,4 @@ test
 tsconfig.base.json
 vitest.config.ts
 vitest.setup.ts
+.github
