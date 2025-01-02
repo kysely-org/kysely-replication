@@ -8,3 +8,7 @@ biome.json
 package-lock.yaml
 tsconfig.json
 tsup.config.ts
+test
+tsconfig.base.json
+vitest.config.ts
+vitest.setup.ts
