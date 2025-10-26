@@ -37,7 +37,7 @@
 		"@arethetypeswrong/cli": "^0.18.2",
 		"@biomejs/biome": "^1.9.4",
 		"@tsconfig/node22": "^22.0.0",
-		"@types/node": "^22.10.2",
+		"@types/node": "^24.9.1",
 		"kysely": "^0.28.8",
 		"std-env": "^3.10.0",
 		"tsup": "^8.3.5",

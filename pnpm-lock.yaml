@@ -18,8 +18,8 @@ importers:
         specifier: ^22.0.0
         version: 22.0.0
       '@types/node':
-        specifier: ^22.10.2
-        version: 22.10.2
+        specifier: ^24.9.1
+        version: 24.9.1
       kysely:
         specifier: ^0.28.8
         version: 0.28.8
@@ -37,7 +37,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: ^4.0.3
-        version: 4.0.3(@types/node@22.10.2)(tsx@4.19.2)
+        version: 4.0.3(@types/node@24.9.1)(tsx@4.19.2)
 
 packages:
 
@@ -822,8 +822,8 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
-  '@types/node@22.10.2':
-    resolution: {integrity: sha512-Xxr6BBRCAOQixvonOye19wnzyDiUtTeqldOOmj3CkeblonbccA12PFwlufvRdrpjXxqnmUaeiU5EOA+7s5diUQ==}
+  '@types/node@24.9.1':
+    resolution: {integrity: sha512-QoiaXANRkSXK6p0Duvt56W208du4P9Uye9hWLWgGMDTEoKPhuenzNcC4vGUmrNkiOKTlIrBoyNQYNpSwfEZXSg==}
 
   '@vitest/expect@4.0.3':
     resolution: {integrity: sha512-v3eSDx/bF25pzar6aEJrrdTXJduEBU3uSGXHslIdGIpJVP8tQQHV6x1ZfzbFQ/bLIomLSbR/2ZCfnaEGkWkiVQ==}
@@ -1373,8 +1373,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@6.20.0:
-    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+  undici-types@7.16.0:
+    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
   unicode-emoji-modifier-base@1.0.0:
     resolution: {integrity: sha512-yLSH4py7oFH3oG/9K+XWrz1pSi3dfUrWEnInbxMfArOfc1+33BlGPQtLsOYwvdMy11AwUBetYuaRxSPqgkq+8g==}
@@ -1959,9 +1959,9 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
-  '@types/node@22.10.2':
+  '@types/node@24.9.1':
     dependencies:
-      undici-types: 6.20.0
+      undici-types: 7.16.0
 
   '@vitest/expect@4.0.3':
     dependencies:
@@ -1972,13 +1972,13 @@ snapshots:
       chai: 6.2.0
       tinyrainbow: 3.0.3
 
-  '@vitest/mocker@4.0.3(vite@7.1.12(@types/node@22.10.2)(tsx@4.19.2))':
+  '@vitest/mocker@4.0.3(vite@7.1.12(@types/node@24.9.1)(tsx@4.19.2))':
     dependencies:
       '@vitest/spy': 4.0.3
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.1.12(@types/node@22.10.2)(tsx@4.19.2)
+      vite: 7.1.12(@types/node@24.9.1)(tsx@4.19.2)
 
   '@vitest/pretty-format@4.0.3':
     dependencies:
@@ -2546,13 +2546,13 @@ snapshots:
 
   typescript@5.7.2: {}
 
-  undici-types@6.20.0: {}
+  undici-types@7.16.0: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 
   validate-npm-package-name@5.0.1: {}
 
-  vite@7.1.12(@types/node@22.10.2)(tsx@4.19.2):
+  vite@7.1.12(@types/node@24.9.1)(tsx@4.19.2):
     dependencies:
       esbuild: 0.25.11
       fdir: 6.5.0(picomatch@4.0.3)
@@ -2561,14 +2561,14 @@ snapshots:
       rollup: 4.52.5
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 22.10.2
+      '@types/node': 24.9.1
       fsevents: 2.3.3
       tsx: 4.19.2
 
-  vitest@4.0.3(@types/node@22.10.2)(tsx@4.19.2):
+  vitest@4.0.3(@types/node@24.9.1)(tsx@4.19.2):
     dependencies:
       '@vitest/expect': 4.0.3
-      '@vitest/mocker': 4.0.3(vite@7.1.12(@types/node@22.10.2)(tsx@4.19.2))
+      '@vitest/mocker': 4.0.3(vite@7.1.12(@types/node@24.9.1)(tsx@4.19.2))
       '@vitest/pretty-format': 4.0.3
       '@vitest/runner': 4.0.3
       '@vitest/snapshot': 4.0.3
@@ -2585,10 +2585,10 @@ snapshots:
       tinyexec: 0.3.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vite: 7.1.12(@types/node@22.10.2)(tsx@4.19.2)
+      vite: 7.1.12(@types/node@24.9.1)(tsx@4.19.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.10.2
+      '@types/node': 24.9.1
     transitivePeerDependencies:
       - jiti
       - less
