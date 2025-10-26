@@ -13,6 +13,4 @@ export default defineConfig({
 		'./src/strategy/round-robin.mts',
 	],
 	format: ['cjs', 'esm'],
-	skipNodeModulesBundle: true,
-	sourcemap: true,
 })
