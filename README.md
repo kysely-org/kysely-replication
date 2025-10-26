@@ -1,13 +1,45 @@
-# kysely-replication
+![A Kysely-branded yellow duck playing with bricks together with a Neon-branded elephant](./assets/banner.png)
 
-Production systems often use multiple database replicas to distribute read load 
-and increase availability. `kysely-replication` is a set of ideas and utilities 
+[![NPM Version](https://img.shields.io/npm/v/kysely-replication?style=flat&label=latest)](https://github.com/kysely-org/kysely-replication/releases/latest)
+[![Tests](https://github.com/kysely-org/kysely-replication/actions/workflows/test.yml/badge.svg)](https://github.com/kysely-org/kysely-replication)
+[![License](https://img.shields.io/github/license/kysely-org/kysely-replication?style=flat)](https://github.com/kysely-org/kysely-replication/blob/main/LICENSE)
+[![Issues](https://img.shields.io/github/issues-closed/kysely-org/kysely-replication?logo=github)](https://github.com/kysely-org/kysely-replication/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+[![Pull Requests](https://img.shields.io/github/issues-pr-closed/kysely-org/kysely-replication?label=PRs&logo=github&style=flat)](https://github.com/kysely-org/kysely-replication/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
+![GitHub contributors](https://img.shields.io/github/contributors/kysely-org/kysely-replication)
+[![Downloads](https://img.shields.io/npm/dw/kysely-replication?logo=npm)](https://www.npmjs.com/package/kysely-replication)
+
+###### Join the discussion ⠀⠀⠀⠀⠀⠀⠀
+
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=flat&logo=discord&logoColor=white)](https://discord.gg/xyBJ3GwvAm)
+[![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?style=flat&logo=Bluesky&logoColor=white)](https://bsky.app/profile/kysely.dev)
+
+Production systems often use multiple database replicas to distribute read load, lower read latencies and increase availability. `kysely-replication` is a set of ideas and utilities 
 for building a replication-aware Kysely instance.
 
 ## Installation
 
+### Node.js
+
 ```sh
 npm install kysely kysely-replication
+```
+
+```bash
+pnpm add kysely kysely-replication
+```
+
+```bash
+yarn add kysely kysely-replication
+```
+
+### Other runtimes
+
+```bash
+deno add jsr:@kysely/kysely jsr:@kysely/replication
+```
+
+```bash
+bun add kysely kysely-replication
 ```
 
 ## Usage
