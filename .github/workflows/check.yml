@@ -43,7 +43,7 @@ jobs:
         run: pnpm check:exports
 
       - name: Publint
-        run: pnpx publint
+        run: pnpm publint
 
       - name: TSC
         run: pnpm check:types
