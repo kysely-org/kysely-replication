@@ -90,6 +90,8 @@ export function getDDLQueries(getSchemaModule: () => SchemaModule) {
 		dropTable: getSchemaModule().dropTable('cakes'),
 		dropType: getSchemaModule().dropType('cake_type'),
 		dropView: getSchemaModule().dropView('users_view'),
+		refreshMaterializedView:
+			getSchemaModule().refreshMaterializedView('users_view'),
 	} satisfies {
 		[K in keyof Omit<SchemaModule, `with${string}`>]: {
 			execute(): Promise<unknown>

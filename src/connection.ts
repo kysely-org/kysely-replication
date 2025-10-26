@@ -28,6 +28,7 @@ const PRIMARY_OPERATION_NODE_KINDS: Record<
 	InsertQueryNode: true,
 	MergeQueryNode: true,
 	RawNode: true,
+	RefreshMaterializedViewNode: true,
 	UpdateQueryNode: true,
 }
 
