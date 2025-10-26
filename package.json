@@ -17,10 +17,9 @@
 		"biome": "biome",
 		"build": "tsup && tsx ./scripts/fix-build.mts",
 		"lint": "biome check",
-		"check:dts": "attw --pack .",
+		"check:exports": "attw --pack .",
 		"check:types": "tsc",
-		"prepublishOnly": "pnpm lint && vitest run && pnpm build && pnpm check:dts",
-		"release:preview": "pkg-pr-new publish",
+		"prepublishOnly": "pnpm lint && vitest run && pnpm build && pnpm check:exports",
 		"test": "vitest"
 	},
 	"keywords": [
@@ -35,7 +34,7 @@
 	"author": "Igal Klebanov <igalklebanov@gmail.com>",
 	"license": "MIT",
 	"devDependencies": {
-		"@arethetypeswrong/cli": "^0.17.2",
+		"@arethetypeswrong/cli": "^0.18.2",
 		"@biomejs/biome": "^1.9.4",
 		"@tsconfig/node22": "^22.0.0",
 		"@types/node": "^22.10.2",
