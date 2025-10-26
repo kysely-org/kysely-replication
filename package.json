@@ -32,6 +32,9 @@
 	],
 	"author": "Igal Klebanov <igalklebanov@gmail.com>",
 	"license": "MIT",
+	"peerDependencies": {
+		"kysely": "^0.28"
+	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
 		"@biomejs/biome": "^2.3.1",
