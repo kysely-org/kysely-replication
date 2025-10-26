@@ -4,8 +4,8 @@ import type {
 	Driver,
 	TransactionSettings,
 } from 'kysely'
-import type { ReplicaStrategy } from './config.js'
-import { KyselyReplicationConnection } from './connection.js'
+import type { ReplicaStrategy } from './config.mjs'
+import { KyselyReplicationConnection } from './connection.mjs'
 
 export class KyselyReplicationDriver implements Driver {
 	readonly #primaryDriver: Driver

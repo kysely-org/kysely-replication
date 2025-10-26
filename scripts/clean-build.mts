@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(
 	fileURLToPath(
-		// @ts-ignore
+		// @ts-expect-error
 		import.meta.url,
 	),
 )

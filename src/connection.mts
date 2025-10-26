@@ -84,6 +84,7 @@ export class KyselyReplicationConnection implements DatabaseConnection {
 			}
 
 			if (this.#onReplicaTransaction === 'warn') {
+				// biome-ignore lint/suspicious/noConsole: this is intentional
 				console.warn(message)
 			}
 		}

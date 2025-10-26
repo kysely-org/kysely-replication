@@ -21,7 +21,7 @@ export class WithDialectPlugin implements KyselyPlugin {
 	transformQuery(args: PluginTransformQueryArgs): RootOperationNode {
 		return {
 			...args.node,
-			// @ts-ignore
+			// @ts-expect-error
 			__dialect__: this.#dialect,
 			__replicaIndex__: this.#replicaIndex,
 		}

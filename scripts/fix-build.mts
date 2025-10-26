@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(
 	fileURLToPath(
-		// @ts-ignore
+		// @ts-expect-error
 		import.meta.url,
 	),
 )
@@ -25,7 +25,9 @@ export async function fixBuild(): Promise<void> {
 }
 
 async function copySubfolderToRoot(folderName: string): Promise<void> {
-	await cp(join(distPath, folderName), join(rootPath, folderName), { recursive: true })
+	await cp(join(distPath, folderName), join(rootPath, folderName), {
+		recursive: true,
+	})
 }
 
 fixBuild()

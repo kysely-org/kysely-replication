@@ -1,7 +1,8 @@
 import { QueryCreator, SchemaModule } from 'kysely'
-import { WithDialectPlugin } from './plugin.js'
+import { WithDialectPlugin } from './plugin.mjs'
 
 declare module 'kysely' {
+	// biome-ignore lint/correctness/noUnusedVariables: this is fine.
 	export interface QueryCreator<DB> {
 		/**
 		 * Use the primary dialect for the next queries.

@@ -16,10 +16,9 @@
 	"scripts": {
 		"biome": "biome",
 		"build": "tsup && tsx ./scripts/fix-build.mts",
-		"lint": "biome check",
 		"check:exports": "attw --pack .",
 		"check:types": "tsc",
-		"prepublishOnly": "pnpm lint && vitest run && pnpm build && pnpm check:exports",
+		"prepublishOnly": "biome check && pnpm build && pnpm check:exports",
 		"test": "vitest"
 	},
 	"keywords": [
@@ -35,7 +34,7 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
-		"@biomejs/biome": "^1.9.4",
+		"@biomejs/biome": "^2.3.1",
 		"@tsconfig/node22": "^22.0.0",
 		"@types/node": "^24.9.1",
 		"kysely": "^0.28.8",
@@ -46,7 +45,7 @@
 		"vitest": "^4.0.3"
 	},
 	"sideEffects": [
-		"./src/force/module-augmentation.ts"
+		"./src/force/module-augmentation.mts"
 	],
 	"exports": {
 		"./package.json": "./package.json",

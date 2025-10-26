@@ -1,4 +1,4 @@
-import type { ReplicaStrategy } from '../config.js'
+import type { ReplicaStrategy } from '../config.mjs'
 
 export interface RoundRobinReplicaStrategyOptions {
 	onTransaction?: 'error' | 'warn' | 'allow'
