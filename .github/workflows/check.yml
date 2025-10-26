@@ -34,7 +34,7 @@ jobs:
         run: pnpm i
 
       - name: Biome
-        run: pnpm biome ci
+        run: pnpm i -D @biomejs/cli-linux-x64 && pnpm biome ci
 
       - name: Build
         run: pnpm build
