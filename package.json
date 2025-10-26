@@ -49,7 +49,6 @@
 	"sideEffects": [
 		"./src/force/module-augmentation.ts"
 	],
-	"packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
@@ -92,5 +91,6 @@
 				"default": "./dist/strategy/round-robin.cjs"
 			}
 		}
-	}
+	},
+	"packageManager": "pnpm@10.19.0+sha512.c9fc7236e92adf5c8af42fd5bf1612df99c2ceb62f27047032f4720b33f8eacdde311865e91c411f2774f618d82f320808ecb51718bfa82c060c4ba7c76a32b8"
 }
