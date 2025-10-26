@@ -2,12 +2,7 @@ import { copyFile, cp, readdir } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const __dirname = dirname(
-	fileURLToPath(
-		// @ts-expect-error
-		import.meta.url,
-	),
-)
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const rootPath = join(__dirname, '../')
 const distPath = join(__dirname, '../dist')

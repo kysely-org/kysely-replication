@@ -38,10 +38,11 @@
 		"@tsconfig/node22": "^22.0.0",
 		"@types/node": "^24.9.1",
 		"kysely": "^0.28.8",
+		"pathe": "^2.0.3",
 		"std-env": "^3.10.0",
 		"tsup": "^8.3.5",
 		"tsx": "^4.19.2",
-		"typescript": "^5.7.2",
+		"typescript": "^5.9.3",
 		"vitest": "^4.0.3"
 	},
 	"sideEffects": [

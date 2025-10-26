@@ -1,4 +1,0 @@
-{
-	"extends": "../tsconfig.base.json",
-	"include": ["./*.mts", "test-setup.mts", "index.test.mts", "force.test.mts"]
-}
