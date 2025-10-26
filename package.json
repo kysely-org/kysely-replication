@@ -11,11 +11,11 @@
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"engines": {
-		"node": ">=18.0.0"
+		"node": ">=20"
 	},
 	"scripts": {
 		"biome": "biome",
-		"build": "tsup && tsx ./scripts/fix-build.mts",
+		"build": "tsup && node --experimental-strip-types ./scripts/fix-build.mts",
 		"check:exports": "attw --pack .",
 		"check:types": "tsc",
 		"prepublishOnly": "biome check && pnpm build && pnpm check:exports",
@@ -41,7 +41,6 @@
 		"pathe": "^2.0.3",
 		"std-env": "^3.10.0",
 		"tsup": "^8.3.5",
-		"tsx": "^4.19.2",
 		"typescript": "^5.9.3",
 		"vitest": "^4.0.3"
 	},

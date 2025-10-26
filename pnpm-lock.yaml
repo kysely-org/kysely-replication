@@ -32,9 +32,6 @@ importers:
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(postcss@8.5.6)(tsx@4.19.2)(typescript@5.9.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.2
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -2138,6 +2135,7 @@ snapshots:
       '@esbuild/win32-arm64': 0.23.1
       '@esbuild/win32-ia32': 0.23.1
       '@esbuild/win32-x64': 0.23.1
+    optional: true
 
   esbuild@0.24.2:
     optionalDependencies:
@@ -2227,6 +2225,7 @@ snapshots:
   get-tsconfig@4.8.1:
     dependencies:
       resolve-pkg-maps: 1.0.0
+    optional: true
 
   glob@10.4.5:
     dependencies:
@@ -2357,7 +2356,8 @@ snapshots:
 
   resolve-from@5.0.0: {}
 
-  resolve-pkg-maps@1.0.0: {}
+  resolve-pkg-maps@1.0.0:
+    optional: true
 
   rollup@4.29.1:
     dependencies:
@@ -2544,6 +2544,7 @@ snapshots:
       get-tsconfig: 4.8.1
     optionalDependencies:
       fsevents: 2.3.3
+    optional: true
 
   typescript@5.6.1-rc: {}
 
