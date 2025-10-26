@@ -19,7 +19,9 @@
 		"check:exports": "attw --pack .",
 		"check:types": "tsc",
 		"prepublishOnly": "biome check && pnpm build && pnpm check:exports",
-		"test": "vitest"
+		"script:align-versions": "node --experimental-strip-types scripts/align-versions.mts",
+		"test": "vitest",
+		"version": "pnpm script:align-versions && biome format --write && git add ."
 	},
 	"keywords": [
 		"kysely",
@@ -40,6 +42,7 @@
 		"@biomejs/biome": "^2.3.1",
 		"@tsconfig/node24": "^24.0.1",
 		"@types/node": "^24.9.1",
+		"jsr": "^0.13.5",
 		"kysely": "^0.28.8",
 		"pathe": "^2.0.3",
 		"publint": "^0.3.15",

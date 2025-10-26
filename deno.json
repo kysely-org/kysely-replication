@@ -1,0 +1,24 @@
+{
+	"$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+	"name": "@kysely/replication",
+	"version": "0.2.3",
+	"license": "MIT",
+	"exports": {
+		".": "./src/index.mts",
+		"./force": "./src/force/index.mts",
+		"./strategy/random": "./src/strategy/random.mts",
+		"./strategy/round-robin": "./src/strategy/round-robin.mts"
+	},
+	"imports": {
+		"kysely": "jsr:@kysely/kysely@0.28.8"
+	},
+	"publish": {
+		"include": [
+			"LICENSE",
+			"README.md",
+			"src/**/*.mts",
+			"tsconfig.base.json",
+			"tsconfig.json"
+		]
+	}
+}

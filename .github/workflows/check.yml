@@ -47,3 +47,6 @@ jobs:
 
       - name: TSC
         run: pnpm check:types
+
+      - name: JSR dry run
+        run: pnpm script:align-versions && pnpm jsr publish --dry-run --allow-dirty
