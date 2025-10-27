@@ -1,4 +1,4 @@
-![A Kysely-branded yellow duck playing with bricks together with a Neon-branded elephant](./assets/banner.png)
+![A Kysely-branded yellow duck and its many replications](./assets/banner.png)
 
 [![NPM Version](https://img.shields.io/npm/v/kysely-replication?style=flat&label=latest)](https://github.com/kysely-org/kysely-replication/releases/latest)
 [![Tests](https://github.com/kysely-org/kysely-replication/actions/workflows/test.yml/badge.svg)](https://github.com/kysely-org/kysely-replication)
