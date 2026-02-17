@@ -12,58 +12,71 @@ import '../src/force/index.mjs'
 
 describe.each([
 	{ dialect: 'primary' },
+	{ dialect: 'replica' },
+	{ dialect: 'replica', replicaIndex: 0 },
 	{ dialect: 'replica', replicaIndex: 1 },
-] as const)('force: with $dialect', ({ dialect, replicaIndex }) => {
-	const executions: string[] = []
-	let db: Kysely<Database>
-	let method: 'withPrimary' | 'withReplica'
-	let expectedDialect: string
+] as const)(
+	'force: with $dialect (index $replicaIndex)',
+	({ dialect, replicaIndex }) => {
+		const executions: string[] = []
+		let db: Kysely<Database>
+		let method: 'withPrimary' | 'withReplica'
+		let expectedDialect: string
 
-	beforeAll(() => {
-		db = getKysely(new RoundRobinReplicaStrategy(), executions)
-		method = `with${dialect.slice(0, 1).toUpperCase()}${dialect.slice(1)}` as
-			| 'withPrimary'
-			| 'withReplica'
-		expectedDialect =
-			dialect === 'primary' ? dialect : `replica-${replicaIndex}`
-	})
+		beforeAll(() => {
+			db = getKysely(new RoundRobinReplicaStrategy(), executions)
+			method = `with${dialect.slice(0, 1).toUpperCase()}${dialect.slice(1)}` as
+				| 'withPrimary'
+				| 'withReplica'
+			expectedDialect =
+				dialect === 'primary'
+					? dialect
+					: replicaIndex !== undefined
+						? `replica-${replicaIndex}`
+						: 'replica-\\d+'
+		})
 
-	afterEach(() => {
-		executions.length = 0 // clear executions
-	})
+		afterEach(() => {
+			executions.length = 0 // clear executions
+		})
 
-	it(`should use ${dialect} dialect for DML queries`, async () => {
-		const getDb = () => db[method](replicaIndex)
+		it(`should use ${dialect} dialect for DML queries`, async () => {
+			const getDb = () => db[method](replicaIndex)
 
-		const queries = {
-			...getMutationQueries(getDb),
-			...getReadQueries(getDb),
-		} satisfies {
-			[K in keyof Omit<QueryCreator<Database>, `with${string}`> | 'with']: {
-				execute(): Promise<unknown>
+			const queries = {
+				...getMutationQueries(getDb),
+				...getReadQueries(getDb),
+			} satisfies {
+				[K in keyof Omit<QueryCreator<Database>, `with${string}`> | 'with']: {
+					execute(): Promise<unknown>
+				}
 			}
-		}
 
-		await Promise.all(Object.values(queries).map((query) => query.execute()))
+			await Promise.all(Object.values(queries).map((query) => query.execute()))
 
-		expect(executions).toEqual(
-			Object.values(queries).map(() => expectedDialect),
-		)
-	})
+			expect(executions).toEqual(
+				Object.values(queries).map(() =>
+					expect.stringMatching(expectedDialect),
+				),
+			)
+		})
 
-	it(`should use ${dialect} dialect for DDL queries`, async () => {
-		const queries = getDDLQueries(() => db.schema[method](replicaIndex))
+		it(`should use ${dialect} dialect for DDL queries`, async () => {
+			const queries = getDDLQueries(() => db.schema[method](replicaIndex))
 
-		await Promise.all(Object.values(queries).map((query) => query.execute()))
+			await Promise.all(Object.values(queries).map((query) => query.execute()))
 
-		expect(executions).toEqual(
-			Object.values(queries).map(() => expectedDialect),
-		)
-	})
+			expect(executions).toEqual(
+				Object.values(queries).map(() =>
+					expect.stringMatching(expectedDialect),
+				),
+			)
+		})
 
-	it('should use primary dialect for raw queries', async () => {
-		await sql`select 1`.execute(db[method](replicaIndex))
+		it('should use primary dialect for raw queries', async () => {
+			await sql`select 1`.execute(db[method](replicaIndex))
 
-		expect(executions).toEqual([expectedDialect])
-	})
-})
+			expect(executions).toEqual([expect.stringMatching(expectedDialect)])
+		})
+	},
+)
