@@ -53,7 +53,8 @@
 		"vitest": "^4.0.3"
 	},
 	"sideEffects": [
-		"./src/force/module-augmentation.mts"
+		"./dist/force/index.js",
+		"./dist/force/index.cjs"
 	],
 	"exports": {
 		"./package.json": "./package.json",
