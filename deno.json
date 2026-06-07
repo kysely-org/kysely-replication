@@ -10,7 +10,7 @@
 		"./strategy/round-robin": "./src/strategy/round-robin.mts"
 	},
 	"imports": {
-		"kysely": "jsr:@kysely/kysely@0.28.8"
+		"kysely": "jsr:@kysely/kysely@0.29.2"
 	},
 	"publish": {
 		"include": [

@@ -60,6 +60,18 @@ function getDummyDialect(name: string, executions: string[]): Dialect {
 			init: () => Promise.resolve(),
 			releaseConnection: () => Promise.resolve(),
 			rollbackTransaction: () => Promise.resolve(),
+			savepoint: () => {
+				executions.push(`${name}:savepoint`)
+				return Promise.resolve()
+			},
+			rollbackToSavepoint: () => {
+				executions.push(`${name}:rollbackToSavepoint`)
+				return Promise.resolve()
+			},
+			releaseSavepoint: () => {
+				executions.push(`${name}:releaseSavepoint`)
+				return Promise.resolve()
+			},
 		}),
 		createIntrospector: (db) => new PostgresIntrospector(db),
 		createQueryCompiler: () => new PostgresQueryCompiler(),
@@ -71,6 +83,7 @@ export function getDDLQueries(getSchemaModule: () => SchemaModule) {
 		alterTable: getSchemaModule()
 			.alterTable('users')
 			.addColumn('nickname', 'varchar'),
+		alterType: getSchemaModule().alterType('cake_type').renameTo('cake_kind'),
 		createIndex: getSchemaModule()
 			.createIndex('users_index')
 			.on('users')
