@@ -34,119 +34,118 @@ describe.each(
 			Strategy: RandomReplicaStrategy,
 		},
 	]),
-)(
-	'kysely-replication: $Strategy.name (onTransaction: $onTransaction)',
-	({ onTransaction, replicaAssertion, Strategy }) => {
-		let db: Kysely<Database>
-		const executions: string[] = []
+)('kysely-replication: $Strategy.name (onTransaction: $onTransaction)', ({
+	onTransaction,
+	replicaAssertion,
+	Strategy,
+}) => {
+	let db: Kysely<Database>
+	const executions: string[] = []
 
-		beforeAll(() => {
-			db = getKysely(new Strategy({ onTransaction }), executions)
+	beforeAll(() => {
+		db = getKysely(new Strategy({ onTransaction }), executions)
+	})
+
+	afterEach(() => {
+		executions.length = 0 // clear executions
+	})
+
+	it('should use primary dialect for DDL queries', async () => {
+		const queries = getDDLQueries(() => db.schema)
+
+		await Promise.all(Object.values(queries).map((query) => query.execute()))
+
+		expect(executions).toEqual(Object.values(queries).map(() => 'primary'))
+	})
+
+	it('should use primary dialect for raw queries', async () => {
+		await sql`select 1`.execute(db)
+
+		expect(executions).toEqual(['primary'])
+	})
+
+	it('should use primary dialect for DML queries that mutate data', async () => {
+		const queries = getMutationQueries(() => db)
+
+		await Promise.all(Object.values(queries).map((query) => query.execute()))
+
+		expect(executions).toEqual(Object.values(queries).map(() => 'primary'))
+	})
+
+	it('should use primary dialect for transactions', async () => {
+		await db.transaction().execute(async (trx) => {
+			await trx.selectFrom('users').selectAll().execute()
 		})
 
-		afterEach(() => {
-			executions.length = 0 // clear executions
-		})
+		expect(executions).toEqual(['primary'])
+	})
 
-		it('should use primary dialect for DDL queries', async () => {
-			const queries = getDDLQueries(() => db.schema)
+	it('should use replica dialects for DML queries that do not mutate data', async () => {
+		const queries = getReadQueries(() => db)
 
-			await Promise.all(Object.values(queries).map((query) => query.execute()))
+		// with extra queries to test round-robin
+		await Promise.all([
+			Object.values(queries).map((query) => query.execute()),
+			db.selectFrom('users').selectAll().execute(),
+			db.selectFrom('users').selectAll().execute(),
+		])
 
-			expect(executions).toEqual(Object.values(queries).map(() => 'primary'))
-		})
+		replicaAssertion(executions)
+	})
 
-		it('should use primary dialect for raw queries', async () => {
-			await sql`select 1`.execute(db)
+	it('should use primary dialect for savepoints', async () => {
+		const trx = await db.startTransaction().execute()
 
-			expect(executions).toEqual(['primary'])
-		})
+		try {
+			const trxAfterSavepoint = await trx.savepoint('after_something').execute()
 
-		it('should use primary dialect for DML queries that mutate data', async () => {
-			const queries = getMutationQueries(() => db)
+			await trxAfterSavepoint.selectFrom('users').selectAll().execute()
 
-			await Promise.all(Object.values(queries).map((query) => query.execute()))
+			await trxAfterSavepoint.rollbackToSavepoint('after_something').execute()
 
-			expect(executions).toEqual(Object.values(queries).map(() => 'primary'))
-		})
+			await trxAfterSavepoint.releaseSavepoint('after_something').execute()
 
-		it('should use primary dialect for transactions', async () => {
-			await db.transaction().execute(async (trx) => {
-				await trx.selectFrom('users').selectAll().execute()
-			})
+			await trx.commit().execute()
+		} catch (error) {
+			await trx.rollback().execute()
+			throw error
+		}
 
-			expect(executions).toEqual(['primary'])
-		})
+		expect(executions).toEqual([
+			'primary',
+			'primary:savepoint',
+			'primary:rollbackToSavepoint',
+			'primary:releaseSavepoint',
+		])
+	})
 
-		it('should use replica dialects for DML queries that do not mutate data', async () => {
-			const queries = getReadQueries(() => db)
+	const message =
+		'KyselyReplication: transaction started with replica connection!'
 
-			// with extra queries to test round-robin
-			await Promise.all([
-				Object.values(queries).map((query) => query.execute()),
-				db.selectFrom('users').selectAll().execute(),
-				db.selectFrom('users').selectAll().execute(),
-			])
-
-			replicaAssertion(executions)
-		})
-
-		it('should use primary dialect for savepoints', async () => {
-			const trx = await db.startTransaction().execute()
-
-			try {
-				const trxAfterSavepoint = await trx
-					.savepoint('after_something')
-					.execute()
-
-				await trxAfterSavepoint.selectFrom('users').selectAll().execute()
-
-				await trxAfterSavepoint.rollbackToSavepoint('after_something').execute()
-
-				await trxAfterSavepoint.releaseSavepoint('after_something').execute()
-
-				await trx.commit().execute()
-			} catch (error) {
-				await trx.rollback().execute()
-				throw error
-			}
-
-			expect(executions).toEqual([
-				'primary',
-				'primary:savepoint',
-				'primary:rollbackToSavepoint',
-				'primary:releaseSavepoint',
-			])
-		})
-
-		const message =
-			'KyselyReplication: transaction started with replica connection!'
-
-		if (onTransaction === 'error') {
-			it('should throw an error when a transaction is started with a replica connection', async () => {
-				await expect(
-					db.connection().execute(async (con) => {
-						await con.selectFrom('users').selectAll().execute()
-
-						await con.transaction().execute(async (trx) => {
-							await trx.selectFrom('users').selectAll().execute()
-						})
-					}),
-				).rejects.toThrow(message)
-			})
-		} else {
-			it('should warn when a transaction is started with a replica connection', async () => {
-				await db.connection().execute(async (con) => {
+	if (onTransaction === 'error') {
+		it('should throw an error when a transaction is started with a replica connection', async () => {
+			await expect(
+				db.connection().execute(async (con) => {
 					await con.selectFrom('users').selectAll().execute()
 
 					await con.transaction().execute(async (trx) => {
 						await trx.selectFrom('users').selectAll().execute()
 					})
-				})
+				}),
+			).rejects.toThrow(message)
+		})
+	} else {
+		it('should warn when a transaction is started with a replica connection', async () => {
+			await db.connection().execute(async (con) => {
+				await con.selectFrom('users').selectAll().execute()
 
-				expect(warnSpy).toHaveBeenCalledTimes(1)
-				expect(warnSpy).toHaveBeenCalledWith(message)
+				await con.transaction().execute(async (trx) => {
+					await trx.selectFrom('users').selectAll().execute()
+				})
 			})
-		}
-	},
-)
+
+			expect(warnSpy).toHaveBeenCalledTimes(1)
+			expect(warnSpy).toHaveBeenCalledWith(message)
+		})
+	}
+})
