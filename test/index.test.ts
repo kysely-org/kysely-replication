@@ -1,14 +1,14 @@
 import { type Kysely, sql } from 'kysely'
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
-import { RandomReplicaStrategy } from '../src/strategy/random.mjs'
-import { RoundRobinReplicaStrategy } from '../src/strategy/round-robin.mjs'
+import { RandomReplicaStrategy } from '../src/strategy/random'
+import { RoundRobinReplicaStrategy } from '../src/strategy/round-robin'
 import {
 	type Database,
 	getDDLQueries,
 	getKysely,
 	getMutationQueries,
 	getReadQueries,
-} from './test-setup.mjs'
+} from './test-setup'
 
 const randomSpy = vi.spyOn(global.Math, 'random')
 const warnSpy = vi.spyOn(global.console, 'warn')

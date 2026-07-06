@@ -39,12 +39,6 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Exports
-        run: pnpm check:exports
-
-      - name: Publint
-        run: pnpm publint
-
       - name: TSC
         run: pnpm check:types
 

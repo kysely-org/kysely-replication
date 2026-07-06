@@ -1,14 +1,14 @@
 import { type Kysely, type QueryCreator, sql } from 'kysely'
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
-import { RoundRobinReplicaStrategy } from '../src/strategy/round-robin.mjs'
+import { RoundRobinReplicaStrategy } from '../src/strategy/round-robin'
 import {
 	type Database,
 	getDDLQueries,
 	getKysely,
 	getMutationQueries,
 	getReadQueries,
-} from './test-setup.mjs'
-import '../src/force/index.mjs'
+} from './test-setup'
+import '../src/force'
 
 describe.each([
 	{ dialect: 'primary' },

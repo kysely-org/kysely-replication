@@ -2,6 +2,6 @@
 export type {
 	KyselyReplicationDialectConfig,
 	ReplicaStrategy,
-} from './config.mjs'
-export { KyselyReplicationDialect } from './dialect.mjs'
-export { KyselyReplicationDriver } from './driver.mjs'
+} from './config'
+export { KyselyReplicationDialect } from './dialect'
+export { KyselyReplicationDriver } from './driver'

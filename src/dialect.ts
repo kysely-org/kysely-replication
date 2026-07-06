@@ -6,8 +6,8 @@ import type {
 	Kysely,
 	QueryCompiler,
 } from 'kysely'
-import type { KyselyReplicationDialectConfig } from './config.mjs'
-import { KyselyReplicationDriver } from './driver.mjs'
+import type { KyselyReplicationDialectConfig } from './config'
+import { KyselyReplicationDriver } from './driver'
 
 export class KyselyReplicationDialect implements Dialect {
 	readonly #config: KyselyReplicationDialectConfig

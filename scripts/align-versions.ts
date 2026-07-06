@@ -5,7 +5,7 @@
 import { writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'pathe'
-import jsrJson from '../deno.json' with { type: 'json' }
+import jsrJson from '../jsr.json' with { type: 'json' }
 import pkgJson from '../package.json' with { type: 'json' }
 
 const __dirname = dirname(fileURLToPath(import.meta.url))

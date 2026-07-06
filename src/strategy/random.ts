@@ -1,4 +1,4 @@
-import type { ReplicaStrategy } from '../config.mjs'
+import type { ReplicaStrategy } from '../config'
 
 export interface RandomReplicaStrategyOptions {
 	onTransaction?: 'error' | 'warn' | 'allow'
