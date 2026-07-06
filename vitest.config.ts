@@ -5,7 +5,6 @@ export default defineConfig({
 	test: {
 		allowOnly: !isCI,
 		clearMocks: true,
-		globalSetup: ['./vitest.setup.mts'],
 		typecheck: {
 			enabled: true,
 			ignoreSourceErrors: true,

@@ -8,21 +8,17 @@
 	},
 	"homepage": "https://kysely.dev",
 	"type": "module",
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"types": "./dist/index.d.mts",
 	"engines": {
-		"node": ">=20"
+		"node": ">=22"
 	},
 	"scripts": {
-		"biome": "biome",
-		"build": "tsup && node --experimental-strip-types ./scripts/fix-build.mts",
-		"check:exports": "attw --pack .",
+		"build": "tsdown",
 		"check:types": "tsc",
-		"prepublishOnly": "biome check && pnpm build && pnpm check:exports && publint",
-		"script:align-versions": "node --experimental-strip-types scripts/align-versions.mts",
+		"prepublishOnly": "biome check && pnpm build",
+		"script:align-versions": "node --experimental-strip-types scripts/align-versions.ts",
 		"test": "vitest",
-		"version": "pnpm script:align-versions && biome format --write && git add ."
+		"version": "pnpm script:align-versions && git add ."
 	},
 	"keywords": [
 		"kysely",
@@ -39,71 +35,31 @@
 		"kysely": "^0.29"
 	},
 	"devDependencies": {
-		"@arethetypeswrong/cli": "^0.18.2",
-		"@biomejs/biome": "^2.3.0",
-		"@tsconfig/node24": "^24.0.1",
-		"@types/node": "^24.9.1",
-		"jsr": "^0.13.5",
-		"kysely": "^0.29.2",
-		"pathe": "^2.0.3",
-		"publint": "^0.3.15",
-		"std-env": "^3.10.0",
-		"tsup": "^8.5.0",
-		"typescript": "^5.9.3",
-		"vitest": "^4.0.3"
+		"@arethetypeswrong/core": "0.18.4",
+		"@biomejs/biome": "2.5.2",
+		"@tsconfig/node24": "24.0.4",
+		"@types/node": "26.1.0",
+		"jsr": "0.14.3",
+		"kysely": "0.29.2",
+		"pathe": "2.0.3",
+		"publint": "0.3.21",
+		"std-env": "4.1.0",
+		"tsdown": "0.22.3",
+		"typescript": "6.0.3",
+		"vitest": "4.1.9"
 	},
 	"sideEffects": [
-		"./src/force/module-augmentation.mts"
+		"./dist/force/index.mjs"
 	],
 	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": {
-				"types": "./dist/index.d.ts",
-				"default": "./dist/index.js"
-			},
-			"require": {
-				"types": "./dist/index.d.cts",
-				"default": "./dist/index.cjs"
-			}
-		},
-		"./force": {
-			"import": {
-				"types": "./dist/force/index.d.ts",
-				"default": "./dist/force/index.js"
-			},
-			"require": {
-				"types": "./dist/force/index.d.cts",
-				"default": "./dist/force/index.cjs"
-			}
-		},
-		"./strategy/random": {
-			"import": {
-				"types": "./dist/strategy/random.d.ts",
-				"default": "./dist/strategy/random.js"
-			},
-			"require": {
-				"types": "./dist/strategy/random.d.cts",
-				"default": "./dist/strategy/random.cjs"
-			}
-		},
-		"./strategy/round-robin": {
-			"import": {
-				"types": "./dist/strategy/round-robin.d.ts",
-				"default": "./dist/strategy/round-robin.js"
-			},
-			"require": {
-				"types": "./dist/strategy/round-robin.d.cts",
-				"default": "./dist/strategy/round-robin.cjs"
-			}
-		}
+		".": "./dist/index.mjs",
+		"./force": "./dist/force/index.mjs",
+		"./strategy/random": "./dist/strategy/random.mjs",
+		"./strategy/round-robin": "./dist/strategy/round-robin.mjs",
+		"./package.json": "./package.json"
 	},
 	"files": [
-		"config-*.d.cts",
-		"config-*.d.ts",
-		"dist",
-		"force",
-		"strategy"
+		"dist"
 	],
-	"packageManager": "pnpm@10.19.0+sha512.c9fc7236e92adf5c8af42fd5bf1612df99c2ceb62f27047032f4720b33f8eacdde311865e91c411f2774f618d82f320808ecb51718bfa82c060c4ba7c76a32b8"
+	"packageManager": "pnpm@11.10.0+sha512.0b7f8b98060031904c017e3a41eb187a16d40eeb829b95c4f8cb03681761fc4ab53dd219115b9b447f4dce1a05a214764461e7d3703392a9f32f9511ce8c86c8"
 }

@@ -1,12 +1,15 @@
 ![A Kysely-branded yellow duck and its many replications](./assets/banner.png)
 
 [![NPM Version](https://img.shields.io/npm/v/kysely-replication?style=flat&label=latest)](https://github.com/kysely-org/kysely-replication/releases/latest)
+[![Socket Badge](https://badge.socket.dev/npm/package/kysely-replication/0.3.0)](https://socket.dev/npm/package/@kysely-replication/overview/0.3.0)
 [![Tests](https://github.com/kysely-org/kysely-replication/actions/workflows/test.yml/badge.svg)](https://github.com/kysely-org/kysely-replication)
 [![License](https://img.shields.io/github/license/kysely-org/kysely-replication?style=flat)](https://github.com/kysely-org/kysely-replication/blob/main/LICENSE)
 [![Issues](https://img.shields.io/github/issues-closed/kysely-org/kysely-replication?logo=github)](https://github.com/kysely-org/kysely-replication/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 [![Pull Requests](https://img.shields.io/github/issues-pr-closed/kysely-org/kysely-replication?label=PRs&logo=github&style=flat)](https://github.com/kysely-org/kysely-replication/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
 ![GitHub contributors](https://img.shields.io/github/contributors/kysely-org/kysely-replication)
-[![Downloads](https://img.shields.io/npm/dw/kysely-replication?logo=npm)](https://www.npmjs.com/package/kysely-replication)
+[![NPM Downloads](https://img.shields.io/npm/dw/kysely-replication?logo=npm)](https://www.npmjs.com/package/kysely-replication)
+[![JSR Downloads](https://jsr.io/badges/@kysely/replication/weekly-downloads)](https://jsr.io/@kysely/replication)
+[![JSR Score](https://jsr.io/badges/@kysely/replication/score)](https://jsr.io/@kysely/replication)
 
 ###### Join the discussion ⠀⠀⠀⠀⠀⠀⠀
 
@@ -214,3 +217,13 @@ await db.transaction().execute(async (trx) => {
   // continue with the transaction as normal
 })
 ```
+
+# All contributors
+
+<p align="center">
+    <a href="https://github.com/kysely-org/kysely-replication/graphs/contributors">
+        <img src="https://contrib.rocks/image?repo=kysely-org/kysely-replication" />
+    </a>
+    </br>
+    <span>Want to contribute? Check out our <a href="./CONTRIBUTING.md" >contribution guidelines</a>.</span>
+</p>

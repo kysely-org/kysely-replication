@@ -1,5 +1,5 @@
 import { QueryCreator, SchemaModule } from 'kysely'
-import { WithDialectPlugin } from './plugin.mjs'
+import { WithDialectPlugin } from './plugin'
 
 declare module 'kysely' {
 	// biome-ignore lint/correctness/noUnusedVariables: this is fine.

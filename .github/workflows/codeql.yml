@@ -13,12 +13,17 @@ permissions:
 
 jobs:
   analyze:
+    concurrency:
+      cancel-in-progress: ${{ github.ref_name != 'main' }}
+      group: ${{ github.workflow }}-analyze-${{ github.event.pull_request.number || github.sha }}
+
+    name: Analyze
     runs-on: ubuntu-latest
 
     permissions:
-      actions: read
-      contents: read
-      security-events: write
+      actions: read # required by codeql to read workflow run status.
+      contents: read # required to check out the repository.
+      security-events: write # required by codeql to upload analysis results.
 
     strategy:
       fail-fast: false
@@ -27,18 +32,20 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@4e94bd11f71e507f7f87df81788dff88d1dacbfb # v4.31.0
+        uses: github/codeql-action/init@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a # v4.36.3
         with:
           languages: ${{ matrix.language }}
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@4e94bd11f71e507f7f87df81788dff88d1dacbfb # v4.31.0
+        uses: github/codeql-action/analyze@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a # v4.36.3
         with:
           category: "/language:${{matrix.language}}"

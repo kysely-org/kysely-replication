@@ -11,9 +11,9 @@ import {
 	type SqlBool,
 	sql,
 } from 'kysely'
-import { KyselyReplicationDialect } from '../src/dialect.mjs'
-import type { RandomReplicaStrategy } from '../src/strategy/random.mjs'
-import type { RoundRobinReplicaStrategy } from '../src/strategy/round-robin.mjs'
+import { KyselyReplicationDialect } from '../src/dialect'
+import type { RandomReplicaStrategy } from '../src/strategy/random'
+import type { RoundRobinReplicaStrategy } from '../src/strategy/round-robin'
 
 export interface Database {
 	users: {
