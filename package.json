@@ -36,17 +36,17 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "0.18.4",
-		"@biomejs/biome": "2.3.0",
-		"@tsconfig/node24": "24.0.1",
-		"@types/node": "24.9.1",
-		"jsr": "0.13.5",
+		"@biomejs/biome": "2.5.2",
+		"@tsconfig/node24": "24.0.4",
+		"@types/node": "26.1.0",
+		"jsr": "0.14.3",
 		"kysely": "0.29.2",
 		"pathe": "2.0.3",
-		"publint": "0.3.15",
-		"std-env": "3.10.0",
+		"publint": "0.3.21",
+		"std-env": "4.1.0",
 		"tsdown": "0.22.3",
-		"typescript": "5.9.3",
-		"vitest": "4.0.3"
+		"typescript": "6.0.3",
+		"vitest": "4.1.9"
 	},
 	"sideEffects": [
 		"./dist/force/index.mjs"
