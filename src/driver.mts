@@ -2,6 +2,7 @@ import type {
 	CompiledQuery,
 	DatabaseConnection,
 	Driver,
+	QueryCompiler,
 	TransactionSettings,
 } from 'kysely'
 import type { ReplicaStrategy } from './config.mjs'
@@ -97,6 +98,30 @@ export class KyselyReplicationDriver implements Driver {
 		connection: KyselyReplicationConnection,
 	): Promise<void> {
 		await connection.rollbackTransaction()
+	}
+
+	async savepoint(
+		connection: KyselyReplicationConnection,
+		savepointName: string,
+		compileQuery: QueryCompiler['compileQuery'],
+	): Promise<void> {
+		await connection.savepoint(savepointName, compileQuery)
+	}
+
+	async rollbackToSavepoint(
+		connection: KyselyReplicationConnection,
+		savepointName: string,
+		compileQuery: QueryCompiler['compileQuery'],
+	): Promise<void> {
+		await connection.rollbackToSavepoint(savepointName, compileQuery)
+	}
+
+	async releaseSavepoint(
+		connection: KyselyReplicationConnection,
+		savepointName: string,
+		compileQuery: QueryCompiler['compileQuery'],
+	): Promise<void> {
+		await connection.releaseSavepoint(savepointName, compileQuery)
 	}
 
 	#compileErrors(results: PromiseSettledResult<unknown>[]): string[] {

@@ -91,6 +91,34 @@ describe.each(
 			replicaAssertion(executions)
 		})
 
+		it('should use primary dialect for savepoints', async () => {
+			const trx = await db.startTransaction().execute()
+
+			try {
+				const trxAfterSavepoint = await trx
+					.savepoint('after_something')
+					.execute()
+
+				await trxAfterSavepoint.selectFrom('users').selectAll().execute()
+
+				await trxAfterSavepoint.rollbackToSavepoint('after_something').execute()
+
+				await trxAfterSavepoint.releaseSavepoint('after_something').execute()
+
+				await trx.commit().execute()
+			} catch (error) {
+				await trx.rollback().execute()
+				throw error
+			}
+
+			expect(executions).toEqual([
+				'primary',
+				'primary:savepoint',
+				'primary:rollbackToSavepoint',
+				'primary:releaseSavepoint',
+			])
+		})
+
 		const message =
 			'KyselyReplication: transaction started with replica connection!'
 

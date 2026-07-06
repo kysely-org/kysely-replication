@@ -3,6 +3,7 @@ import {
 	type DatabaseConnection,
 	type Driver,
 	type OperationNode,
+	type QueryCompiler,
 	type QueryResult,
 	type RootOperationNode,
 	SelectQueryNode,
@@ -14,6 +15,7 @@ const PRIMARY_OPERATION_NODE_KINDS: Record<
 	true
 > = {
 	AlterTableNode: true,
+	AlterTypeNode: true,
 	CreateIndexNode: true,
 	CreateSchemaNode: true,
 	CreateTableNode: true,
@@ -112,6 +114,59 @@ export class KyselyReplicationConnection implements DatabaseConnection {
 		if (!this.#connection) return
 
 		await this.#driver?.releaseConnection(this.#connection)
+	}
+
+	async savepoint(
+		savepointName: string,
+		compileQuery: QueryCompiler['compileQuery'],
+	): Promise<void> {
+		const { connection, driver } = this.#getSavepointTarget('savepoint')
+
+		await driver.savepoint(connection, savepointName, compileQuery)
+	}
+
+	async rollbackToSavepoint(
+		savepointName: string,
+		compileQuery: QueryCompiler['compileQuery'],
+	): Promise<void> {
+		const { connection, driver } = this.#getSavepointTarget(
+			'rollbackToSavepoint',
+		)
+
+		await driver.rollbackToSavepoint(connection, savepointName, compileQuery)
+	}
+
+	async releaseSavepoint(
+		savepointName: string,
+		compileQuery: QueryCompiler['compileQuery'],
+	): Promise<void> {
+		const { connection, driver } = this.#getSavepointTarget('releaseSavepoint')
+
+		await driver.releaseSavepoint(connection, savepointName, compileQuery)
+	}
+
+	#getSavepointTarget<
+		M extends 'savepoint' | 'rollbackToSavepoint' | 'releaseSavepoint',
+	>(
+		method: M,
+	): {
+		connection: DatabaseConnection
+		driver: Driver & Required<Pick<Driver, M>>
+	} {
+		if (!this.#connection || !this.#driver) {
+			throw new Error(`${method} called without a transaction`)
+		}
+
+		if (!this.#driver[method]) {
+			throw new Error(
+				`The \`${method}\` method is not supported by this driver`,
+			)
+		}
+
+		return {
+			connection: this.#connection,
+			driver: this.#driver as never,
+		}
 	}
 
 	async #acquireDriverAndConnection(
