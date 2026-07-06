@@ -165,7 +165,7 @@ export class KyselyReplicationConnection implements DatabaseConnection {
 
 		return {
 			connection: this.#connection,
-			driver: this.#driver as Driver & Required<Pick<Driver, M>>,
+			driver: this.#driver as never,
 		}
 	}
 
