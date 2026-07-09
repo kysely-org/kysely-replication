@@ -28,8 +28,8 @@ importers:
         specifier: 0.14.3
         version: 0.14.3
       kysely:
-        specifier: 0.29.2
-        version: 0.29.2
+        specifier: 0.29.3
+        version: 0.29.3
       pathe:
         specifier: 2.0.3
         version: 2.0.3
@@ -722,8 +722,8 @@ packages:
     resolution: {integrity: sha512-PGxnDepx7vwJoZQe2SHbyBiFfpGwsOKmX4kn/wZZqfMafV7fjXqTxSaX6lp9QHYkSTLKkER+P/wmrZY3gVJNzg==}
     hasBin: true
 
-  kysely@0.29.2:
-    resolution: {integrity: sha512-s6WVJyEZrbm6jhBpiKHsGHyePMrVQKJ85wZCFCr9W4QHv6WTjWIrdvTmO9hDEA3bNK0xkrE2DqrHsXMLWuZpQg==}
+  kysely@0.29.3:
+    resolution: {integrity: sha512-VHtBdW6XB/pgoTSqraM3UAa2rYoYdNXqnNPpX+8XXP+cwYbVEFuAp3HyPt1vpNfU9l7Y2kpUrA9QDPsy8uUqOQ==}
     engines: {node: '>=22.0.0'}
 
   lru-cache@11.5.1:
@@ -1476,7 +1476,7 @@ snapshots:
       node-stream-zip: 1.15.0
       semiver: 1.1.0
 
-  kysely@0.29.2: {}
+  kysely@0.29.3: {}
 
   lru-cache@11.5.1: {}
 
