@@ -1,7 +1,7 @@
 ![A Kysely-branded yellow duck and its many replications](./assets/banner.png)
 
 [![NPM Version](https://img.shields.io/npm/v/kysely-replication?style=flat&label=latest)](https://github.com/kysely-org/kysely-replication/releases/latest)
-[![Socket Badge](https://badge.socket.dev/npm/package/kysely-replication/0.3.0)](https://socket.dev/npm/package/@kysely-replication/overview/0.3.0)
+[![Socket Badge](https://badge.socket.dev/npm/package/kysely-replication/0.4.0)](https://socket.dev/npm/package/@kysely-replication/overview/0.4.0)
 [![Tests](https://github.com/kysely-org/kysely-replication/actions/workflows/test.yml/badge.svg)](https://github.com/kysely-org/kysely-replication)
 [![License](https://img.shields.io/github/license/kysely-org/kysely-replication?style=flat)](https://github.com/kysely-org/kysely-replication/blob/main/LICENSE)
 [![Issues](https://img.shields.io/github/issues-closed/kysely-org/kysely-replication?logo=github)](https://github.com/kysely-org/kysely-replication/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
