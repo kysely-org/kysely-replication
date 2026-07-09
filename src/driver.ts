@@ -28,8 +28,9 @@ export class KyselyReplicationDriver implements Driver {
 			this.#primaryDriver,
 			async (compiledQuery: CompiledQuery) => {
 				const replicaIndex =
-					'__replicaIndex__' in compiledQuery.query
-						? (compiledQuery.query.__replicaIndex__ as number)
+					'__replicaIndex__' in compiledQuery.query &&
+					typeof compiledQuery.query.__replicaIndex__ === 'number'
+						? compiledQuery.query.__replicaIndex__
 						: await this.#replicaStrategy.next(this.#replicaDrivers.length)
 
 				const replicaDriver = this.#replicaDrivers[replicaIndex]
