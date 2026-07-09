@@ -39,6 +39,7 @@
 		"@biomejs/biome": "2.5.2",
 		"@tsconfig/node24": "24.0.4",
 		"@types/node": "26.1.0",
+		"esbuild": "0.28.1",
 		"jsr": "0.14.3",
 		"kysely": "0.29.2",
 		"pathe": "2.0.3",
@@ -49,6 +50,7 @@
 		"vitest": "4.1.9"
 	},
 	"sideEffects": [
+		"./src/force/module-augmentation.ts",
 		"./dist/force/index.mjs"
 	],
 	"exports": {
