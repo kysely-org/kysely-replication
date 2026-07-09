@@ -49,6 +49,7 @@
 		"vitest": "4.1.9"
 	},
 	"sideEffects": [
+		"./src/force/module-augmentation.ts",
 		"./dist/force/index.mjs"
 	],
 	"exports": {
